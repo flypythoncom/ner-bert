@@ -1,3 +1,11 @@
+
+ImportError: /lib64/libstdc++.so.6: version `CXXABI_1.3.9' not found
+
+add `your_path/anaconda3/lib` to `LD_LIBRARY_PATH` solved the problem
+
+[stackoverflow](https://stackoverflow.com/questions/49875588/importerror-lib64-libstdc-so-6-version-cxxabi-1-3-9-not-found)
+
+
 ## 0. Papers
 There are two solutions based on this architecture.
 1. [BSNLP 2019 ACL workshop](http://bsnlp.cs.helsinki.fi/shared_task.html): [solution](https://github.com/king-menin/slavic-ner) and [paper](https://arxiv.org/abs/1906.09978) on multilingual shared task.

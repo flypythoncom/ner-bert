@@ -6,5 +6,6 @@ tqdm
 rusenttokenize
 numpy
 nltk
-torch
+torch>=1.0.0
 matplotlib
+pandas>=0.24.2

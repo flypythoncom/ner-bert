@@ -32,7 +32,7 @@ class BERTNerModel(nn.Module, metaclass=abc.ABCMeta):
 
 class BERTBiLSTMCRF(BERTNerModel):
 
-    def __init__(self, embeddings, lstm, crf, device="cuda"):
+    def __init__(self, embeddings, lstm, crf, device):
         super(BERTBiLSTMCRF, self).__init__()
         self.embeddings = embeddings
         self.lstm = lstm
@@ -54,14 +54,16 @@ class BERTBiLSTMCRF(BERTNerModel):
     @classmethod
     def create(cls,
                label_size,
+               device,
                # BertEmbedder params
-               model_name='bert-base-multilingual-cased', mode="weighted", is_freeze=True,
+               model_name,
+               mode="not weighted", is_freeze=True,
                # BiLSTM params
                embedding_size=768, hidden_dim=512, rnn_layers=1, lstm_dropout=0.3,
                # CRFDecoder params
-               crf_dropout=0.5,
+               crf_dropout=0.5
                # Global params
-               device="cuda"):
+               ):
         embeddings = BERTEmbedder.create(model_name=model_name, device=device, mode=mode, is_freeze=is_freeze)
         lstm = BiLSTM.create(
                 embedding_size=embedding_size, hidden_dim=hidden_dim, rnn_layers=rnn_layers, dropout=lstm_dropout)

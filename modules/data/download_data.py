@@ -1,7 +1,7 @@
+import urllib.request as request
 import urllib
 import sys
 import os
-
 
 tasks_urls = {
     "conll2003": [
@@ -14,8 +14,11 @@ tasks_urls = {
 def download_data(task_name, data_dir):
     req = urllib
     if sys.version_info >= (3, 0):
-        req = urllib.request
+        req = request
     for data_file, url in tasks_urls[task_name]:
         if not os.path.exists(data_dir):
             os.mkdir(data_dir)
         _ = req.urlretrieve(url, os.path.join(data_dir, data_file))
+
+download_data('conll2003', 'conll2003')
+

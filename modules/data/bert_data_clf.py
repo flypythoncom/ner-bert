@@ -197,6 +197,7 @@ class LearnDataClass(object):
                # DataSet params
                train_df_path,
                valid_df_path,
+               device,
                idx2cls=None,
                idx2cls_path=None,
                min_char_len=1,
@@ -207,7 +208,7 @@ class LearnDataClass(object):
                train_df=None,
                valid_df=None,
                # DataLoader params
-               device="cuda", batch_size=16):
+                batch_size=16):
         train_ds = None
         train_dl = None
         valid_ds = None

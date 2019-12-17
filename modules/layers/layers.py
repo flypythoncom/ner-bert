@@ -24,7 +24,7 @@ class BiLSTM(nn.Module):
         length = input_mask.sum(-1)
         sorted_lengths, sorted_idx = torch.sort(length, descending=True)
         input_ = input_[sorted_idx]
-        packed_input = rnn_utils.pack_padded_sequence(input_, sorted_lengths.data.tolist(), batch_first=True)
+        packed_input = rnn_utils.pack_padded_sequence(input_, sorted_lengths.cpu().numpy(), batch_first=True)
         output, (hidden, _) = self.lstm(packed_input)
         padded_outputs = rnn_utils.pad_packed_sequence(output, batch_first=True)[0]
         _, reversed_idx = torch.sort(sorted_idx)

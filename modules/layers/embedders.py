@@ -1,4 +1,4 @@
-from pytorch_pretrained_bert import BertModel
+from transformers import BertModel
 import torch
 
 
@@ -19,8 +19,8 @@ class BERTEmbedder(torch.nn.Module):
 
     @classmethod
     def create(
-            cls, model_name='bert-base-multilingual-cased',
-            device="cuda", mode="weighted",
+            cls, device,model_name='bert-base-multilingual-cased',
+            mode="weighted",
             is_freeze=True):
         config = {
             "model_name": model_name,
@@ -52,7 +52,8 @@ class BERTEmbedder(torch.nn.Module):
             input_ids=batch[0],
             token_type_ids=batch[2],
             attention_mask=batch[1],
-            output_all_encoded_layers=self.config["mode"] == "weighted")
+            # output_all_encoded_layers=self.config["mode"] == "weighted"
+        )
         if self.config["mode"] == "weighted":
             encoded_layers = torch.stack([a * b for a, b in zip(encoded_layers, self.bert_weights)])
             return self.bert_gamma * torch.sum(encoded_layers, dim=0)

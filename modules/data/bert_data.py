@@ -1,6 +1,6 @@
 from torch.utils.data import DataLoader
 import torch
-from pytorch_pretrained_bert import BertTokenizer
+from transformers import BertTokenizer
 from modules.utils import read_config, if_none
 from modules import tqdm
 import pandas as pd
@@ -55,7 +55,7 @@ class InputFeature(object):
 
 
 class TextDataLoader(DataLoader):
-    def __init__(self, data_set, shuffle=False, device="cuda", batch_size=16):
+    def __init__(self, data_set, device,shuffle=False, batch_size=16):
         super(TextDataLoader, self).__init__(
             dataset=data_set,
             collate_fn=self.collate_fn,
@@ -319,6 +319,7 @@ class LearnData(object):
                train_df_path,
                valid_df_path,
                idx2labels_path,
+               device,
                idx2labels=None,
                idx2cls=None,
                idx2cls_path=None,
@@ -332,7 +333,7 @@ class LearnData(object):
                train_df=None,
                valid_df=None,
                # DataLoader params
-               device="cuda", batch_size=16):
+                batch_size=16):
         train_ds = None
         train_dl = None
         valid_ds = None
